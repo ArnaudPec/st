@@ -96,44 +96,58 @@ unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* solarized dark */
-	"#073642",  /*  0: black    */
-	"#dc322f",  /*  1: red      */
-	"#859900",  /*  2: green    */
-	"#b58900",  /*  3: yellow   */
-	"#268bd2",  /*  4: blue     */
-	"#d33682",  /*  5: magenta  */
-	"#2aa198",  /*  6: cyan     */
-	"#eee8d5",  /*  7: white    */
-	"#002b36",  /*  8: brblack  */
-	"#cb4b16",  /*  9: brred    */
-	"#586e75",  /* 10: brgreen  */
-	"#657b83",  /* 11: bryellow */
-	"#839496",  /* 12: brblue   */
-	"#6c71c4",  /* 13: brmagenta*/
-	"#93a1a1",  /* 14: brcyan   */
-	"#fdf6e3",  /* 15: brwhite  */
+
+    /* 8 normal colors */
+    [0] = "#1b1d1e", /* black   */
+    [1] = "#f92672", /* red     */
+    [2] = "#fffa00", /* green   */
+    [3] = "#fd971f", /* yellow  */
+    [4] = "#7578ff", /* blue    */
+    [5] = "#8c54fe", /* magenta */
+    [6] = "#465457", /* cyan    */
+    [7] = "#ccccc6", /* white   */
+
+    /* 8 bright colors */
+    [8]  = "#505354", /* black   */
+    [9]  = "#ff5995", /* red     */
+    [10] = "#b6e354", /* green   */
+    [11] = "#feed6c", /* yellow  */
+    [12] = "#0c73c2", /* blue    */
+    [13] = "#9e6ffe", /* magenta */
+    [14] = "#899ca1", /* cyan    */
+    [15] = "#f8f8f2", /* white   */
+
+    /* special colors */
+    [256] = "#000000", /* background */
+    [257] = "#ffffff", /* foreground */
 };
 
 /* Terminal colors for alternate (light) palette */
 static const char *altcolorname[] = {
-	/* solarized light */
-	"#eee8d5",  /*  0: black    */
-	"#dc322f",  /*  1: red      */
-	"#859900",  /*  2: green    */
-	"#b58900",  /*  3: yellow   */
-	"#268bd2",  /*  4: blue     */
-	"#d33682",  /*  5: magenta  */
-	"#2aa198",  /*  6: cyan     */
-	"#073642",  /*  7: white    */
-	"#fdf6e3",  /*  8: brblack  */
-	"#cb4b16",  /*  9: brred    */
-	"#93a1a1",  /* 10: brgreen  */
-	"#839496",  /* 11: bryellow */
-	"#657b83",  /* 12: brblue   */
-	"#6c71c4",  /* 13: brmagenta*/
-	"#586e75",  /* 14: brcyan   */
-	"#002b36",  /* 15: brwhite  */
+
+    /* 8 normal colors */
+    [0] = "#343432", /* black   */
+    [1] = "#fc0960", /* red     */
+    [2] = "#4ede3b", /* green   */
+    [3] = "#f4bf75", /* yellow  */
+    [4] = "#4cd6f1", /* blue    */
+    [5] = "#8947ff", /* magenta */
+    [6] = "#a1efe4", /* cyan    */
+    [7] = "#f8f8f2", /* white   */
+
+    /* 8 bright colors */
+    [8]  = "#787878", /* black   */
+    [9]  = "#fc0960", /* red     */
+    [10] = "#4ede3b", /* green   */
+    [11] = "#f4bf75", /* yellow  */
+    [12] = "#4cd6f1", /* blue    */
+    [13] = "#8947ff", /* magenta */
+    [14] = "#a1efe4", /* cyan    */
+    [15] = "#f9f8f5", /* white   */
+
+    /* special colors */
+    [256] = "#232929", /* background */
+    [257] = "#f8f8f2", /* foreground */
 };
 
 
@@ -141,9 +155,9 @@ static const char *altcolorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 12;
-unsigned int defaultbg = 8;
-static unsigned int defaultcs = 14;
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+static unsigned int defaultcs = 257;
 static unsigned int defaultrcs = 15;
 
 /*
@@ -213,7 +227,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ XK_ANY_MOD,           XK_F6,          swapcolors,     {.i =  0} },
+	{ ShiftMask,            XK_F6,          swapcolors,     {.i =  0} },
 	{ XK_NO_MOD,            XK_F11,         st_fullscreen,  {.i =  0} },
 };
 
