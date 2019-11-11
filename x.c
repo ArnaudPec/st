@@ -258,6 +258,8 @@ static int oldbutton = 3; /* button event on startup: 3 = release */
 
 int usealtcolors = 0; /* 1 to use alternate palette */
 
+extern char **environ;
+
 void
 clipcopy(const Arg *dummy)
 {
@@ -1980,6 +1982,22 @@ run(void)
 		XFlush(xw.dpy);
 		drawing = 0;
 	}
+}
+
+void
+st_fullscreen(const Arg* unused)
+{
+	if (fork() != 0) {
+		return;
+	}
+
+	char winid[sizeof(long) * 8 + 1];
+	snprintf(winid, sizeof(winid), "%lu", xw.win);
+	char * const args[] = {
+		"wmctrl", "-ir", winid, "-b", "toggle,fullscreen", NULL
+	};
+
+	execve("/usr/bin/wmctrl", args, environ);
 }
 
 void

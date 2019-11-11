@@ -213,6 +213,7 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ XK_ANY_MOD,           XK_F6,          swapcolors,     {.i =  0} },
+	{ XK_NO_MOD,            XK_F11,         st_fullscreen,  {.i =  0} },
 };
 
 /*
