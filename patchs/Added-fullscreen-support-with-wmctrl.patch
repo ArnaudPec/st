@@ -1,0 +1,69 @@
+From 0bb7be7fd022883b4e89fd16f2611725cfd6cac3 Mon Sep 17 00:00:00 2001
+From: ArnaudPec <arnaud.pecoraro@utt.fr>
+Date: Mon, 29 Jan 2018 21:33:53 +0100
+Subject: [PATCH] Added fullscreen support with wmctrl
+
+---
+ config.def.h |  1 +
+ st.c         | 19 +++++++++++++++++++
+ 2 files changed, 20 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index 2dea514..53d3b89 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -258,6 +258,7 @@ static Shortcut shortcuts[] = {
+ 	{ MODKEY,            	XK_j,   	kscrolldown,    {.i = 1} },
+ 	{ MODKEY,		XK_u,		kscrollup,      {.i = -1} },
+ 	{ MODKEY,		XK_d,		kscrolldown,    {.i = -1} },
++	{ XK_NO_MOD,            XK_F11,         st_fullscreen,  {.i =  0} },
+ };
+ 
+ /*
+diff --git a/st.c b/st.c
+index 73b3f10..925fe0a 100644
+--- a/st.c
++++ b/st.c
+@@ -35,6 +35,8 @@
+ 
+ char *argv0;
+ 
++extern char **environ;
++
+ #define Glyph Glyph_
+ #define Font Font_
+ 
+@@ -361,6 +363,7 @@ static void printscreen(const Arg *) ;
+ static void iso14755(const Arg *);
+ static void toggleprinter(const Arg *);
+ static void sendbreak(const Arg *);
++static void st_fullscreen(const Arg*);
+ 
+ /* Config.h for applying patches and the configuration. */
+ #include "config.h"
+@@ -1411,6 +1414,22 @@ execsh(void)
+ 	_exit(1);
+ }
+ 
++void
++st_fullscreen(const Arg* unused)
++{
++	if (fork() != 0) {
++		return;
++	}
++
++	char winid[sizeof(long) * 8 + 1];
++	snprintf(winid, sizeof(winid), "%lu", xw.win);
++	char * const args[] = {
++		"wmctrl", "-ir", winid, "-b", "toggle,fullscreen", NULL
++	};
++
++	execve("/usr/bin/wmctrl", args, environ);
++}
++
+ void
+ sigchld(int a)
+ {
+-- 
+2.16.1
+
