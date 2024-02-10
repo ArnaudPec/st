@@ -1215,6 +1215,9 @@ tsetchar(Rune u, const Glyph *attr, int x, int y)
 	term.dirty[y] = 1;
 	term.line[y][x] = *attr;
 	term.line[y][x].u = u;
+
+	if (isboxdraw(u))
+		term.line[y][x].mode |= ATTR_BOXDRAW;
 }
 
 void
@@ -2169,6 +2172,28 @@ tstrsequence(uchar c)
 	strreset();
 	strescseq.type = c;
 	term.esc |= ESC_STR;
+}
+
+void
+tupdatebgcolor(int oldbg, int newbg)
+{
+	for (int y = 0; y < term.row; y++) {
+		for (int x = 0; x < term.col; x++) {
+			if (term.line[y][x].bg == oldbg)
+				term.line[y][x].bg = newbg;
+		}
+	}
+}
+
+void
+tupdatefgcolor(int oldfg, int newfg)
+{
+	for (int y = 0; y < term.row; y++) {
+		for (int x = 0; x < term.col; x++) {
+			if (term.line[y][x].fg == oldfg)
+				term.line[y][x].fg = newfg;
+		}
+	}
 }
 
 void
