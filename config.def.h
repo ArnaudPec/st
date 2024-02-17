@@ -6,11 +6,13 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *fonts[] = {
-	"Liberation Mono:pixelsize=12:antialias=true:autohint=true",
-	"Gohu GohuFont:pixelsize=11:antialias=false:autohint=false",
+	"Comic Mono:pixelsize=16:antialias=true:autohint=true",
+	"Fira Mono:pixelsize=16:antialias=true:autohint=true",
+	"Liberation Mono:pixelsize=16:antialias=true:autohint=true",
+	"Cascadia Code:style=Regular=16:antialias=true:autohint=true",
 };
 static size_t currentfont = 0;
-static int borderpx = 2;
+static int borderpx = 40;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -90,7 +92,7 @@ const int boxdraw_braille = 0;
 static int bellvolume = 0;
 
 /* default TERM value */
-char *termname = "st-256color";
+char *termname = "st";
 
 /*
  * spaces per tab
@@ -123,6 +125,7 @@ typedef struct {
  */
 static const ColorScheme schemes[] = {
 	// st (dark)
+	/*
 	{{"black", "red3", "green3", "yellow3",
 	  "blue2", "magenta3", "cyan3", "gray90",
 	  "gray50", "red", "green", "yellow",
@@ -177,6 +180,154 @@ static const ColorScheme schemes[] = {
 	  "#928374", "#9d0006", "#79740e", "#b57614",
 	  "#076678", "#8f3f71", "#427b58", "#3c3836",
 	  [256]="#3c3836", "#555555"}, 15, 0, 256, 257},
+	  */
+
+	// My default
+	{{
+		[0] = "#1b1d1e",
+		[1] = "#f92672",
+		[2] = "#fffa00",
+		[3] = "#fd971f",
+		[4] = "#7578ff",
+		[5] = "#8b57fe",
+		[6] = "#465457",
+		[7] = "#ccccc6",
+
+		[8] = "#434758",
+		[9] = "#ff8b92",
+		[10] = "#ddffa7",
+		[11] = "#ffe585",
+		[12] = "#9cc4ff",
+		[13] = "#e1acff",
+		[14] = "#a3f7ff",
+		[15] = "#ffffff",
+
+		[255] = "#000000",
+		[256] = "#1b1d1e",
+		[257] = "#bbc5ff"},
+		257, 256, 257, 15
+	},
+
+	// My default dark
+	{{
+		[0] = "#1b1d1e",
+		[1] = "#f92672",
+		[2] = "#fffa00",
+		[3] = "#fd971f",
+		[4] = "#7578ff",
+		[5] = "#8c54fe",
+		[6] = "#465457",
+		[7] = "#ccccc6",
+
+		[8]  = "#505354",
+		[9]  = "#ff5995",
+		[10] = "#b6e354",
+		[11] = "#feed6c",
+		[12] = "#0c73c2",
+		[13] = "#9e6ffe",
+		[14] = "#899ca1",
+		[15] = "#f8f8f2",
+
+		[256] = "#000000",
+		[257] = "#ffffff",
+	 }, 257, 256, 257, 15
+	},
+
+    /* Catpuccin latte */
+    {{
+         "#5C5F77",
+         "#D20F39",
+         "#40A02B",
+         "#DF8E1D",
+         "#1E66F5",
+         "#EA76CB",
+         "#179299",
+         "#ACB0BE",
+
+         "#6C6F85",
+         "#D20F39",
+         "#40A02B",
+         "#DF8E1D",
+         "#1E66F5",
+         "#EA76CB",
+         "#179299",
+         "#DC8A78",
+
+         [256] = "#4C4F69",
+         "#EFF1F5"}, 256, 257, 15, 15},
+
+    /* Catpuccin frappe */
+    {{
+         "#51576D",
+         "#E78284",
+         "#A6D189",
+         "#E5C890",
+         "#8CAAEE",
+         "#F4B8E4",
+         "#81C8BE",
+         "#B5BFE2",
+
+         "#626880",
+         "#E78284",
+         "#A6D189",
+         "#E5C890",
+         "#8CAAEE",
+         "#F4B8E4",
+         "#81C8BE",
+         "#A5ADCE",
+         "#F2D5CF",
+
+         [256] = "#C6D0F5", /* default foreground colour */
+         [257] = "#303446", /* default background colour */
+     }, 256, 257, 15, 15},
+
+    /* Catpuccin macchiato */
+    {{
+		"#494D64",
+		"#ED8796",
+		"#A6DA95",
+		"#EED49F",
+		"#8AADF4",
+		"#F5BDE6",
+		"#8BD5CA",
+		"#B8C0E0",
+
+		"#5B6078",
+		"#ED8796",
+		"#A6DA95",
+		"#EED49F",
+		"#8AADF4",
+		"#F5BDE6",
+		"#8BD5CA",
+		"#A5ADCB",
+
+		[256] = "#CAD3F5",
+		[257] = "#24273A"},
+	256, 257, 15, 15},
+
+	/* Catpuccin moccha */
+	{{
+		"#45475A",
+		"#F38BA8",
+		"#A6E3A1",
+		"#F9E2AF",
+		"#89B4FA",
+		"#F5C2E7",
+		"#94E2D5",
+		"#BAC2DE",
+
+		"#585B70",
+		"#F38BA8",
+		"#A6E3A1",
+		"#F9E2AF",
+		"#89B4FA",
+		"#F5C2E7",
+		"#94E2D5",
+		"#A6ADC8",
+
+		[256] = "#CDD6F4",
+		[257] = "#1E1E2E"},
+	256, 257, 15, 15},
 };
 
 static const char * const * colorname;
@@ -261,7 +412,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_S,           cyclefonts,     {}        },
 	{ XK_NO_MOD,            XK_F11,         fullscreen,     {.i =  0} },
 	{ MODKEY,               XK_Return,      fullscreen,     {.i =  0} },
-	{ MODKEY,               XK_0,           nextscheme,     {.i = +1} },
+	{ TERMMOD,               XK_X,           nextscheme,     {.i = +1} },
 	{ MODKEY|ControlMask,   XK_0,           nextscheme,     {.i = -1} },
 };
 
